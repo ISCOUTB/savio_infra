@@ -17,7 +17,7 @@ Este proyecto permite a estudiantes levantar una instancia local de Moodle para 
 
 1. **Clona el repositorio:**
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/ISCOUTB/savio_infra.git
    cd savio_infra
    ```
 
