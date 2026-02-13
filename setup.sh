@@ -36,13 +36,17 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Verificar si Docker Compose está instalado
-if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+# Verificar si Docker Compose está instalado y determinar el comando a usar
+if docker compose version &> /dev/null; then
+    DOCKER_COMPOSE_CMD="docker compose"
+    echo "✅ Docker Compose (v2) detectado"
+elif command -v docker-compose &> /dev/null; then
+    DOCKER_COMPOSE_CMD="docker-compose"
+    echo "✅ Docker Compose (v1) detectado"
+else
     echo "❌ Docker Compose no está instalado. Por favor instálalo primero."
     exit 1
 fi
-
-echo "✅ Docker y Docker Compose están instalados"
 
 # Descargar Moodle si no existe
 if [ ! -d "moodle" ]; then
@@ -64,7 +68,7 @@ fi
 
 echo
 echo "🚀 Levantando la infraestructura..."
-docker compose up -d
+$DOCKER_COMPOSE_CMD up -d
 
 echo
 echo "✅ ¡Configuración completa!"
@@ -76,5 +80,5 @@ echo "   - Contraseña DB: alpypass"
 echo "   - Base de datos: alpydb"
 echo "   - Host DB: db"
 echo
-echo "🔧 Para detener los servicios: docker compose down"
+echo "🔧 Para detener los servicios: $DOCKER_COMPOSE_CMD down"
 echo "📖 Lee el README.md para más información"

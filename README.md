@@ -12,7 +12,7 @@ Este proyecto permite a estudiantes levantar una instancia local de Moodle para 
 ## Pasos de instalación y uso
 
 ### Importante: Uso de terminal
-- **Linux/macOS:** Abre tu terminal nativo
+- **Linux/macOS:** Abre tu terminal nativo (Revisa [instrucciones específicas para Mac](MACOS.md))
 - **Windows:** Abre Git Bash (NO uses Command Prompt o PowerShell)
 
 1. **Clona el repositorio:**
@@ -88,6 +88,7 @@ Este proyecto permite a estudiantes levantar una instancia local de Moodle para 
 - [Documentación oficial de Moodle](https://moodledev.io/)
 - [Guía de desarrollo de plugins](https://moodledev.io/docs/plugins)
 - [Instrucciones específicas para Windows](WINDOWS.md) 📋
+- [Instrucciones específicas para macOS](MACOS.md) 🍎
 
 ---
 
