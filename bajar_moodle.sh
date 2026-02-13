@@ -61,7 +61,17 @@ if [ -d "moodle" ]; then
 fi
 
 # Descargar Moodle
-wget "$URL" -O "$FILENAME"
+if command -v curl &> /dev/null; then
+    echo "📡 Usando curl para descargar..."
+    # -L sigue redirecciones, indispensable para sourceforge/moodle.org
+    curl -L "$URL" -o "$FILENAME"
+elif command -v wget &> /dev/null; then
+    echo "📡 Usando wget para descargar..."
+    wget "$URL" -O "$FILENAME"
+else
+    echo "❌ No se encontró curl ni wget. Por favor instala uno de ellos."
+    exit 1
+fi
 
 if [ $? -ne 0 ]; then
     echo "❌ Error al descargar Moodle. Verifica tu conexión a internet."
