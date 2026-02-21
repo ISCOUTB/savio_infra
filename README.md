@@ -21,23 +21,24 @@ Este proyecto permite a estudiantes levantar una instancia local de Moodle para 
    cd savio_infra
    ```
 
-2. **Descarga Moodle:**
-   Ejecuta el script para descargar la versión de Moodle que prefieras:
+2. **Configura y descarga Moodle:**
+   Ejecuta el script automático para configurar tu entorno y descargar Moodle:
    ```bash
-   bash bajar_moodle.sh
+   ./setup.sh
    ```
-   El script te permitirá elegir entre:
-   - Moodle 4.1.13 (LTS - Soporte a largo plazo)
-   - Moodle 4.5.2 (Versión estable)
-   - Moodle 5.0+ (Última versión disponible)
+   (Alternativamente, puedes usar `./bajar_moodle.sh`)
+
+   El script buscará dinámicamente las versiones estables más recientes de Moodle (desde la 4.1 LTS hasta 5.1+ o superiores) y te pedirá elegir cuál instalar. 
    
-   Esto creará la carpeta `moodle/` con el código fuente.
+   **Automatización Docker:** El script generará un archivo `.env` configurando automáticamente la versión exacta de PHP (8.1 a 8.4) y de MySQL (8.0 o 8.4) requerida para la rama que hayas elegido. Todo quedará en su lugar incluyendo la extracción del código fuente en la carpeta `moodle/`.
 
 3. **Levanta la infraestructura:**
+   *(Si utilizaste `./setup.sh`, los contenedores se levantarán automáticamente).*
+   Si necesitas levantarlos manualmente en el futuro, ejecuta:
    ```bash
-   docker compose up
+   docker compose up -d --build
    ```
-   Esto iniciará los servicios de base de datos y servidor web.
+   Esto compilará el contenedor web inyectando las configuraciones de tu archivo `.env` e iniciará la base de datos.
 
 4. **Accede a Moodle:**
    Abre tu navegador y visita:
@@ -50,10 +51,10 @@ Este proyecto permite a estudiantes levantar una instancia local de Moodle para 
 
 ## Credenciales por defecto
 - **Base de datos:**
+  - Host: `db` (dentro de Docker)
+  - Nombre DB: `alpydb`
   - Usuario: `alpyuser`
   - Contraseña: `alpypass`
-  - Base de datos: `alpydb`
-  - Host: `db` (dentro de Docker)
 - **Root MySQL:**
   - Usuario: `root`
   - Contraseña: `alpyroot`
@@ -73,15 +74,15 @@ Este proyecto permite a estudiantes levantar una instancia local de Moodle para 
   ```
   **Nota:** En Windows con Git Bash, este comando puede no ser necesario.
 
-- Si necesitas reiniciar los servicios:
+- Si necesitas reiniciar los servicios o aplicar cambios profundos (ej. instalaste una nueva versión):
   ```bash
   docker compose down
-  docker compose up
+  docker compose up -d --build
   ```
-- Para instalar nuevas dependencias PHP, edita el `Dockerfile` y reconstruye el contenedor web:
+- Para instalar nuevas dependencias en PHP, edita el `Dockerfile` y reconstruye el contenedor web:
   ```bash
   docker compose build web
-  docker compose up
+  docker compose up -d
   ```
 
 ## Recursos útiles
