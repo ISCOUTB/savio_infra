@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:8.0
+    image: mysql:${DB_VERSION:-8.0}
     container_name: mysql
     restart: always
     ports:
@@ -16,7 +16,11 @@ services:
       - app-network
 
   web:
-    build: .
+    build:
+      context: .
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.1}
+        DOCUMENT_ROOT: ${DOCUMENT_ROOT:-/var/www/html}
     container_name: apache_php
     restart: always
     ports:

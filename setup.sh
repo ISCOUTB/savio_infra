@@ -3,6 +3,7 @@
 # Script de configuración rápida para Savio Infra
 # Este script automatiza todo el proceso de instalación
 
+echo
 echo "=== Configuración rápida de Savio Infra ==="
 echo
 
@@ -51,7 +52,6 @@ fi
 # Descargar Moodle si no existe
 if [ ! -d "moodle" ]; then
     echo "📥 Descargando Moodle..."
-    echo "El script te permitirá seleccionar la versión (4.1 LTS, 4.5, o 5.0+)"
     bash bajar_moodle.sh
 else
     echo "✅ Moodle ya está descargado"
@@ -75,10 +75,11 @@ echo "✅ ¡Configuración completa!"
 echo
 echo "📋 Información importante:"
 echo "   - Moodle estará disponible en: http://localhost"
+echo "   - Host DB: db"
+echo "   - Nombre DB: alpydb"
 echo "   - Usuario DB: alpyuser"
 echo "   - Contraseña DB: alpypass" 
-echo "   - Base de datos: alpydb"
-echo "   - Host DB: db"
+
 echo
 echo "🔧 Para detener los servicios: $DOCKER_COMPOSE_CMD down"
 echo "📖 Lee el README.md para más información"
